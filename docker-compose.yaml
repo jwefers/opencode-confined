@@ -34,14 +34,14 @@ services:
     # -hf unsloth/Qwen3.5-27B-GGUF:UD-Q8_K_XL
 
     # The 35B model should fit into a 16GB vram gpu
+    # see https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md for llama-server flags for finetuning
     command: >-
       -hf unsloth/Qwen3.5-35B-A3B-GGUF:Q3_K_S
       --alias Qwen
-      --no-mmap
       -fa on
       --host 0.0.0.0
       --port 8080
-      --fit on
+      --ctx-size 262,144
       --temp 0.6
       --top-p 0.95
       --top-k 20
