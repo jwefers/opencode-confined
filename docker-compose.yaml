@@ -1,11 +1,5 @@
 services:
   llama:
-    labels:
-      - traefik.http.routers.llama.rule=Host(`llama.home.arpa`)
-      - traefik.http.services.llama.loadbalancer.server.port=8080
-      - traefik.http.routers.llama.entrypoints=web
-      - traefik.enable=true
-
     image: ghcr.io/ggml-org/llama.cpp:server-vulkan
     # rocm better, but 4GB image size
     # image: ghcr.io/ggml-org/llama.cpp:server-rocm
@@ -26,6 +20,9 @@ services:
 
     volumes:
       - llama-models-cache:/root/.cache
+
+    ports:
+    - 8080:8080
 
     environment:
       # needed for rocm only
@@ -51,12 +48,6 @@ services:
       --min-p 0.00
 
   opencode:
-  # optional, expose via Traefik. Mind the entrypoint
-    labels:
-      - traefik.http.routers.opencode.rule=Host(`opencode.home.arpa`)
-      - traefik.http.services.opencode.loadbalancer.server.port=4096
-      - traefik.http.routers.opencode.entrypoints=web
-      - traefik.enable=true
     build: .
     # restart: always
     container_name: opencode
@@ -68,8 +59,8 @@ services:
       # TODO: mount exactly the folder(s) you want to work on. Mind 'Z' for SELinux
       - /home/youruser/repos:/workspace:Z
 
-    # ports:
-    #   - 4096:4096
+    ports:
+      - 4096:4096
 
     # start in webserver mode
     command: >-
