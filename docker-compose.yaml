@@ -53,7 +53,7 @@ services:
     container_name: opencode
     volumes:
       # mount host opencode config from whereever
-      - opencode.json:/home/user/.config/opencode/opencode.json:z,ro
+      - ./opencode.json:/home/user/.config/opencode/opencode.json:z,ro
       - opencode-session-cache:/home/user/.local/share/opencode
 
       # TODO: mount exactly the folder(s) you want to work on. Mind 'Z' for SELinux
