@@ -35,7 +35,7 @@ services:
 
     # The 35B model should fit into a 16GB vram gpu
     command: >-
-      -hf unsloth/Qwen3.5-35B-A3B-Q3_K_S.gguf
+      -hf unsloth/Qwen3.5-35B-A3B-GGUF:Q3_K_S
       --alias Qwen
       --no-mmap
       -fa on
